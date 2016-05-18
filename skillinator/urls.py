@@ -19,6 +19,10 @@ from django.conf.urls import include
 import skillsmatrix.views
 import skillsmatrix.homework
 
+from skillsmatrix.view.generic import *
+from skillsmatrix.view.model import *
+from django.contrib.auth.decorators import login_required
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
@@ -28,4 +32,22 @@ urlpatterns = [
 
     # Give access to some of the views for the testing/code coverage homework
     url(r'^problemthree/', skillsmatrix.homework.ProblemThree),
+
+
+    url(r'^$', UserRedirectView.as_view(), name="user-redirect-view"),
+
+    url(r'^home/', HomeTemplateView.as_view(), name="home-view"),
+    url(r'^home-login/', login_required(HomeTemplateView.as_view()), name="home-login-view"),
+
+    url(r'^model/(?P<pk>[0-9]+)/update/', DeveloperUpdateView.as_view(), name="developer-update-view"),
+    
+    url(r'^model/(?P<pk>[0-9]+)/', DeveloperDetailView.as_view(), name="developer-detail-view"),
+    url(r'^model/', DeveloperListView.as_view(), name="developer-list-view"),
+
+    url(r'^skill/create/', SkillCreateView.as_view(), name="skill-create-view"),
+    url(r'^skill/', SkillListView.as_view(), name="skill-list-view"),
+
+
+
+
 ]

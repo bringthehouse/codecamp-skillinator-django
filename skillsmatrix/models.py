@@ -23,7 +23,7 @@ class Developer(models.Model):
     title = models.CharField(max_length=30)
 
     def __str__(self):
-        return '%s %s' % (self.user.first_name, self.user.last_name)
+        return '%s' % (self.user)
 
 
 # DeveloperSkill model
